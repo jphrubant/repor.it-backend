@@ -10,7 +10,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const auth = require('./routes/auth');
-
+const report = require('./routes/report');
 
 // MONGOOSE CONNECTION
 mongoose
@@ -68,6 +68,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTER MIDDLEWARE
 app.use('/auth', auth);
+app.use('/report', report)
 
 
 // 404 

@@ -1,10 +1,10 @@
-const express = require(express);
+const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const createError = require("http-errors");
 const Report = require("../models/report-model");
 
-router.get('/report', (req, res, next) => {
+// GET ALL REPORTS //
+router.get('/', (req, res, next) => {
     Report
         .find()
         .populate('user')
@@ -17,22 +17,29 @@ router.get('/report', (req, res, next) => {
             res
             .status(400)
             .json(err); 
-        })
+        });
 });
 
-router.post('/report', (req, res, next) => {
+// CREATE A REPORT//
+router.post('/', (req, res, next) => {
     const {motivation, type, space, description, time, date, location, user} = req.body;
     Report
         .create({motivation, type, space, description, time, date, location, user})
+        .populate('user')
         .then(newReport => {
-            res.json(newReport); //<-- set correct success message
+            res
+              .status(201)
+              .json(newReport); 
         })
         .catch(err => {
-            res.json(err); // <-- set correct error message
-        })
+            res
+            .status(500)
+            .json(err); 
+        });
 });
 
-router.put('/report/:id', (req, res, next) => {
+// UPDATE A REPORT //
+router.put('/:id', (req, res, next) => {
     const {id} = req.params;
     const {motivation, type, space, description, time, date, location, user} = req.body;
     Report
@@ -43,11 +50,14 @@ router.put('/report/:id', (req, res, next) => {
               .json({message: `The report IDed ${id} was updated successfully`}); 
         })
         .catch(err => {
-            res.json(err);
-        })
+            res
+            .status(501)
+            .json(err);
+        });
 });
 
-router.delete('/report/:id', (req, res, next) => {
+// DELETE A REPORT //
+router.delete('/:id', (req, res, next) => {
     const {id} = req.params;
     Report
         .findByIdAndRemove(id)
@@ -60,7 +70,7 @@ router.delete('/report/:id', (req, res, next) => {
             res
               .status(500)
               .json(err);
-        })
+        });
 });
 
 module.exports = router;
