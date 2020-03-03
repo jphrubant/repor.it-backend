@@ -11,7 +11,6 @@ Report.it is a web-application that allows users to anonymously report acts of d
 - As a returning user I want to login on the platform
 - As a logged in user I want to log out from my session
 - As a user I want to delete a report
-- 404: As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I  know it's my fault
 
 ## Backlog
 - Heatmap
@@ -24,13 +23,16 @@ Report.it is a web-application that allows users to anonymously report acts of d
 
 ## React Router Routes
 
-| HTTP Verb | Endpoint       | Request body            | Success | Error | Description                                                  |
-| --------- | -------------- | ----------------------- | ------- | ----- | ------------------------------------------------------------ |
-| `GET`    | `/auth/me` | `Saved Session` | 200     | 404   | Check if user is logged in and return profile page                      |
-| `POST`    | `/auth/login`  | `{ username, password}` | 200     | 500   | Login route to log in the existing user.                     |
-| `POST`    | `/auth/logout` | N/A                     | 204     | 500   | Logout route. Destroys the current login session.            |
-| `GET`     | `/auth/me`     | N/A                     | 200     | 500   | Returns user data from session storage, for react FE authentication. |
-|           |                |                         |         |       |                                                              |
+| Path | Component     |  Permissions          | Behaviours | 
+| ---- | --------------| --------------------- |----------- |
+| `/` | `homepage` | all | Homapge with map of all reports|
+| `/signup` | `SignupPage` |anon only|Signup form, link to login, navigate to homepage after signup|
+| `/login` | `LoginPage` |anon only| Login form, link to signup, navigate to homepage after login|
+|`/	` | `n/a`|anon only| Navigate to homepage after logout, expire session|
+|`/report/add` | `ReportForm`|user only|Navigates to report form, navigates back to home page, with added report|
+| `/report/:id`| `n/a` | user only|deletes the relevant report|
+|`/account/:id` |Account |user only|Navigates to personal area|
+|`/account/edit/:id` | `EditAccount`|user only| navigates to edit perosnal info form, and then back to personal area with saved edits|
 
 ## Components
 - Navbar
@@ -44,22 +46,22 @@ Report.it is a web-application that allows users to anonymously report acts of d
 
 ## Services
 - Auth Service
-    auth.login(user)
-    auth.signup(user)
-    auth.logout()
-    auth.me()
-    auth.getUser() // synchronous
+    -   auth.login(user)
+    -   auth.signup(user)
+    -   auth.logout()
+    -   auth.me()
+    -   auth.getUser() // synchronous
 
 - Report Service
-    report.getAll()
-    report.getOneByUser(userId)
-    report.create()
-    report.delete(id)
+    -   report.getAll()
+    -   report.getOneByUser(userId)
+    -   report.create()
+    -   report.delete(id)
 
 - User Servicer
-    user.details(id)
-    user.edit(id)
-    user.delete(id)
+    -   user.details(id)
+    -   user.edit(id)
+    -   user.delete(id)
 
 # Server/Backend
 
@@ -97,15 +99,20 @@ Report model
 
 | HTTP Verb | Endpoint       | Request body            | Success | Error | Description                                                  |
 | --------- | -------------- | ----------------------- | ------- | ----- | ------------------------------------------------------------ |
-| `GET`    | `/auth/me` | `Saved Session` | 200     | 404   | Check if user is logged in and return profile page                      |
-| `POST`    | `/auth/login`  | `{ username, password}` | 200     | 500   | Login route to log in the existing user.                     |
-| `POST`    | `/auth/logout` | N/A                     | 204     | 500   | Logout route. Destroys the current login session.            |
-| `GET`     | `/auth/me`     | N/A                     | 200     | 500   | Returns user data from session storage, for react FE authentication. |
-|           |                |                         |         |       |                                                              |
+| `GET`| `/auth/me` |Saved Session| 200| 404| Check if user is logged in and return profile page                      |
+| `POST`| `/auth/signup`  | user model| 200| 500 | Checks if fields not empty and user not exists, then create user with encrypted password, and store user in session|
+| `POST`| `/auth/login` | {username, password}| 204 | 500| Checks if fields not empty, if user exists (404), and if password matches, then stores user in session login session.            |
+| `GET`| `/auth/me`     | n/a | 200 | 500 | Returns user data from session storage, for react FE authentication. |
+| `POST`|`/auth/logout`|id| |  |   Logs out the user |
+| `GET`| `/report `| n/a | |  | finds all reports |
+| `POST`| ` /report`| {report model}||  |creates a new report|
+| `DELETE` | `/report/:id` |{id} || |deletes report|
+| `PUT` | `	/user/:id` | `{user model}`| | |edits user information|
+| `DELETE` | `/user/:id` | `{id} `| |  |deletes users|
 
 
 ## Links
-[Trello](https://trello.com/b/AL5zm68u/reportit)
-[Git]()
-[Slides]()
+- [Trello](https://trello.com/b/AL5zm68u/reportit)
+- [Git](https://github.com/jphrubant?tab=repositories)
+- [Slides]()
 
