@@ -99,16 +99,16 @@ Report model
 
 | HTTP Verb | Endpoint       | Request body            | Success | Error | Description                                                  |
 | --------- | -------------- | ----------------------- | ------- | ----- | ------------------------------------------------------------ |
-| `GET`    | `/auth/me` | `Saved Session` | 200     | 404   | Check if user is logged in and return profile page                      |
-| `POST`    | `/auth/signup`  | `user model` | 200     | 500   | Checks if fields not empty and user not exists, then create user with encrypted password, and store user in session                     |
-| `POST`    | `/auth/login` | `{username, password}`               | 204     | 500   | Checks if fields not empty, if user exists (404), and if password matches, then stores user in session login session.            |
-| `GET`     | `/auth/me`     | N/A                     | 200     | 500   | Returns user data from session storage, for react FE authentication. |
-|    `POST`      |  `/auth/logout  `|`id`|         |       |   Logs out the user |
-|     `GET`     |      `/report `       |    n/a      |         |       |       finds all reports         |
-| `POST`	| ` /report`	| `{report model}` ||       |creates a new report|
-| `DELETE` | `/report/:id` |	`{id}` |	|       |deletes report|
-| `PUT` | `	/user/:id` | `	{user model}	` | |       |edits user information|
-| `DELETE` | `	/user/:id` | `	{id} `	| 	|       |deletes users|
+| `GET`| `/auth/me` |Saved Session| 200| 404| Check if user is logged in and return profile page                      |
+| `POST`| `/auth/signup`  | user model| 200| 500 Checks if fields not empty and user not exists, then create user with encrypted password, and store user in session|
+| `POST`| `/auth/login` | {username, password}| 204 | 500| Checks if fields not empty, if user exists (404), and if password matches, then stores user in session login session.            |
+| `GET`| `/auth/me`     | n/a | 200 | 500 | Returns user data from session storage, for react FE authentication. |
+| `POST`|`/auth/logout`|id| |  |   Logs out the user |
+| `GET`| `/report `| n/a | |  | finds all reports |
+| `POST`| ` /report`| {report model}||  |creates a new report|
+| `DELETE` | `/report/:id` |{id} || |deletes report|
+| `PUT` | `	/user/:id` | `{user model}`| | |edits user information|
+| `DELETE` | `/user/:id` | `{id} `| |  |deletes users|
 
 
 ## Links
