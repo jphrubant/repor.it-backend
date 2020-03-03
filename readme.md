@@ -113,6 +113,6 @@ Report model
 
 ## Links
 [Trello](https://trello.com/b/AL5zm68u/reportit)
-[Git]()
+[Git](https://github.com/jphrubant?tab=repositories)
 [Slides]()
 
