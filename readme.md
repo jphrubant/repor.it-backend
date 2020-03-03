@@ -105,10 +105,11 @@ Report model
 | `GET`| `/auth/me`     | n/a | 200 | 500 | Returns user data from session storage, for react FE authentication. |
 | `POST`|`/auth/logout`|id| |  |   Logs out the user |
 | `GET`| `/report `| n/a | |  | finds all reports |
-| `POST`| ` /report`| {report model}||  |creates a new report|
+| `POST`| ` /report`| {report-model}||  |creates a new report|
+| `PUT` | `	/report/:id` | {id, report-model}| | |edits report details|
 | `DELETE` | `/report/:id` |{id} || |deletes report|
-| `PUT` | `	/user/:id` | `{user model}`| | |edits user information|
-| `DELETE` | `/user/:id` | `{id} `| |  |deletes users|
+| `PUT` | `	/user/:id` | {id, user-model}| | |edits user information|
+| `DELETE` | `/user/:id` | {id} | | |deletes users|
 
 
 ## Links
