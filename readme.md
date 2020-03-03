@@ -25,14 +25,14 @@ Report.it is a web-application that allows users to anonymously report acts of d
 
 | Path | Component     |  Permissions          | Behaviours | 
 | ---- | --------------| --------------------- |----------- |
-| `/` | `homepage` | `all` | `Homapge with map of all reports` |
-| `/signup` | `SignupPage` |`anon only` |`Signup form, link to login, navigate to homepage after signup` |
-| `/login` | `LoginPage` |`anon only` | `Login form, link to signup, navigate to homepage after login`|
-|`/	` | `n/a`|`anon only`| `Navigate to homepage after logout, expire session` |
-|`/report/add` | `ReportForm`|`user only` |`Navigates to report form, navigates back to home page, with added report`|
-| `/report/:id`| `n/a` | `user only` |`deletes the relevant report`|
-|`/account/:id` |`Account` |`user only` |`Navigates to personal area`|
-|`/account/edit/:id` | `EditAccount`|`user only`| `navigates to edit perosnal info form, and then back to personal area with saved edits`|
+| `/` | `homepage` | all | Homapge with map of all reports|
+| `/signup` | `SignupPage` |anon only|Signup form, link to login, navigate to homepage after signup|
+| `/login` | `LoginPage` |anon only| Login form, link to signup, navigate to homepage after login|
+|`/	` | `n/a`|anon only| Navigate to homepage after logout, expire session|
+|`/report/add` | `ReportForm`|user only|Navigates to report form, navigates back to home page, with added report|
+| `/report/:id`| `n/a` | user only|deletes the relevant report|
+|`/account/:id` |Account |user only|Navigates to personal area|
+|`/account/edit/:id` | `EditAccount`|user only| navigates to edit perosnal info form, and then back to personal area with saved edits|
 
 ## Components
 - Navbar
