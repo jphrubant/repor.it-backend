@@ -11,7 +11,6 @@ Report.it is a web-application that allows users to anonymously report acts of d
 - As a returning user I want to login on the platform
 - As a logged in user I want to log out from my session
 - As a user I want to delete a report
-- 404: As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I  know it's my fault
 
 ## Backlog
 - Heatmap
