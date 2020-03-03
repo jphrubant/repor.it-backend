@@ -24,13 +24,16 @@ Report.it is a web-application that allows users to anonymously report acts of d
 
 ## React Router Routes
 
-| HTTP Verb | Endpoint       | Request body            | Success | Error | Description                                                  |
-| --------- | -------------- | ----------------------- | ------- | ----- | ------------------------------------------------------------ |
-| `GET`    | `/auth/me` | `Saved Session` | 200     | 404   | Check if user is logged in and return profile page                      |
-| `POST`    | `/auth/login`  | `{ username, password}` | 200     | 500   | Login route to log in the existing user.                     |
-| `POST`    | `/auth/logout` | N/A                     | 204     | 500   | Logout route. Destroys the current login session.            |
-| `GET`     | `/auth/me`     | N/A                     | 200     | 500   | Returns user data from session storage, for react FE authentication. |
-|           |                |                         |         |       |                                                              |
+| Path | Component     |  Permissions          | Behaviours | 
+| ---- | --------------| --------------------- |----------- |
+| `/` | `homepage` | `anon only <AnonRoute>` | `Homapge with map of all reports` |
+| `/signup` | `SignupPage` |`anon only <AnonRoute>` |`Signup form, link to login, navigate to homepage after signup` |
+| `/login` | `LoginPage` |`anon only <AnonRoute>` | `Login form, link to signup, navigate to homepage after login`|
+|`/	` | `n/a`|`anon only <AnonRoute>`| `Navigate to homepage after logout, expire session` |
+|`/report/add` | `ReportForm`|`user only <PrivateRoute>` |`Navigates to report form, navigates back to home page, with added report`|
+| `/report/:id`| `n/a` | `user only <PrivateRoute>` |`deletes the relevant report`|
+|`/account/:id` |`Account` |`user only <PrivateRoute>` |`Navigates to personal area`|
+|`/account/edit/:id` | `EditAccount`|`user only <PrivateRoute>`	| `navigates to edit perosnal info form, and then back to personal area with saved edits`|
 
 ## Components
 - Navbar
@@ -98,10 +101,15 @@ Report model
 | HTTP Verb | Endpoint       | Request body            | Success | Error | Description                                                  |
 | --------- | -------------- | ----------------------- | ------- | ----- | ------------------------------------------------------------ |
 | `GET`    | `/auth/me` | `Saved Session` | 200     | 404   | Check if user is logged in and return profile page                      |
-| `POST`    | `/auth/login`  | `{ username, password}` | 200     | 500   | Login route to log in the existing user.                     |
-| `POST`    | `/auth/logout` | N/A                     | 204     | 500   | Logout route. Destroys the current login session.            |
+| `POST`    | `/auth/signup`  | `user model` | 200     | 500   | Checks if fields not empty and user not exists, then create user with encrypted password, and store user in session                     |
+| `POST`    | `/auth/login` | `{username, password}`               | 204     | 500   | Checks if fields not empty, if user exists (404), and if password matches, then stores user in session login session.            |
 | `GET`     | `/auth/me`     | N/A                     | 200     | 500   | Returns user data from session storage, for react FE authentication. |
-|           |                |                         |         |       |                                                              |
+|    `POST`      |  `/auth/logout  `            |        `id`                 |         |       |   Logs out the user |
+|     `GET`     |      `/report `       |    n/a      |         |       |       finds all reports         |
+| `POST`	| ` /report`	| `{report model}` |`creates a new report`|
+| `DELETE` | `/report/:id` |	`{id}` |	`deletes report`|
+| `PUT` | `	/user/:id` | `	{user model}	` | `		edits user information` |
+| `DELETE` | `	/user/:id` | `	{id} `	| `	deletes users` |
 
 
 ## Links
