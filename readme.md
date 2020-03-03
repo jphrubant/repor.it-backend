@@ -46,22 +46,22 @@ Report.it is a web-application that allows users to anonymously report acts of d
 
 ## Services
 - Auth Service
-    auth.login(user)
-    auth.signup(user)
-    auth.logout()
-    auth.me()
-    auth.getUser() // synchronous
+    -   auth.login(user)
+    -   auth.signup(user)
+    -   auth.logout()
+    -   auth.me()
+    -   auth.getUser() // synchronous
 
 - Report Service
-    report.getAll()
-    report.getOneByUser(userId)
-    report.create()
-    report.delete(id)
+    -   report.getAll()
+    -   report.getOneByUser(userId)
+    -   report.create()
+    -   report.delete(id)
 
 - User Servicer
-    user.details(id)
-    user.edit(id)
-    user.delete(id)
+    -   user.details(id)
+    -   user.edit(id)
+    -   user.delete(id)
 
 # Server/Backend
 
