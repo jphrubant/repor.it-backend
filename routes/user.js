@@ -3,22 +3,22 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const User = require("../models/user-model");
 
-// GET ALL USERS //
-router.get('/', (req, res, next) => {
-    User
-        .find()
-        //.populate('user')
-        .then(allUsers => {
-            res
-              .status(200)
-              .json(allUsers);
-        })
-        .catch(err => {
-            res
-            .status(400)
-            .json(err); 
-        });
-});
+// // GET ALL USERS //
+// router.get('/', (req, res, next) => {
+//     User
+//         .find()
+//         //.populate('user')
+//         .then(allUsers => {
+//             res
+//               .status(200)
+//               .json(allUsers);
+//         })
+//         .catch(err => {
+//             res
+//             .status(400)
+//             .json(err); 
+//         });
+// });
 
 // UPDATE A USER //
 router.put('/:id', (req, res, next) => {

@@ -20,6 +20,23 @@ router.get('/', (req, res, next) => {
         });
 });
 
+// GET ALL REPORTS OF ONE USER //
+router.get('/:id', (req, res, next) => {
+    Report
+        .find()
+        //.populate('user')
+        .then(allReports => {
+            res
+              .status(200)
+              .json(allReports);
+        })
+        .catch(err => {
+            res
+            .status(400)
+            .json(err); 
+        });
+});
+
 // CREATE A REPORT//
 router.post('/', (req, res, next) => {
     const {motivation, type, space, description, time, date, location, user} = req.body;

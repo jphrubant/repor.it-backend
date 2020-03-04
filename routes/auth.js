@@ -24,7 +24,7 @@ router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) =>
     else {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashPass = bcrypt.hashSync(password, salt);
-      const newUser = await User.create({ email, password: hashPass, dateOfBirth, sex, sexualOrientation, ethnicity, nationality, reports});
+      const newUser = await User.create({ email, password: hashPass, dateOfBirth, sex, sexualOrientation, ethnicity, nationality, reports}); 
       
       newUser.password = "*";
       req.session.currentUser = newUser;
