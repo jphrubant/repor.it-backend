@@ -7,7 +7,7 @@ const userSchema = new Schema({
   dateOfBirth: {type: String},
   sex: {type: String, enum: ['Male', 'Female', 'Trans', 'Intersex', 'Other']},
   sexualOrientation: {type: String, enum: ['Heterosexual', 'Homosexual', 'Bisexual', 'Asexual', 'Other']},
-  ethnicity: {type: String, enum: ['White', 'Black', 'Asian', 'Hispanic', 'Latinx', 'Middle Easter', 'Mixed', 'Other']},
+  ethnicity: {type: String, enum: ['White', 'Black', 'Asian', 'Hispanic', 'Latinx', 'Middle Eastern', 'Mixed', 'Other']},
   nationality: {type: String},
   reports: [{type: Schema.Types.ObjectId, ref:'Report'}]
 }, {
