@@ -11,6 +11,7 @@ require('dotenv').config();
 
 const auth = require('./routes/auth');
 const report = require('./routes/report');
+const user = require('./routes/user');
 
 // MONGOOSE CONNECTION
 mongoose
@@ -68,8 +69,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTER MIDDLEWARE
 app.use('/auth', auth);
-app.use('/report', report)
-
+app.use('/report', report);
+app.use('/user', user);
 
 // 404 
 // catch 404 and forward to error handler

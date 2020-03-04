@@ -14,17 +14,18 @@ const {
 
 // POST '/auth/signup'
 router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) => {
-  const { username, password } = req.body;
-
+  const { email, password, dateOfBirth, sex, sexualOrientation, ethnicity, nationality, reports} = req.body;
+  console.log('req.body',req.body);
+  
   try {																									 // projection
-    const usernameExists = await User.findOne({ username }, 'username');
+    const emailExists = await User.findOne({ email }, 'email');
     
-    if (usernameExists) return next(createError(400));
+    if (emailExists) return next(createError(400));
     else {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashPass = bcrypt.hashSync(password, salt);
-      const newUser = await User.create({ username, password: hashPass, dateOfBirth, sex, sexualOrientation, ethnicity, nationality, reports});
-
+      const newUser = await User.create({ email, password: hashPass, dateOfBirth, sex, sexualOrientation, ethnicity, nationality, reports});
+      
       newUser.password = "*";
       req.session.currentUser = newUser;
       res
@@ -40,9 +41,9 @@ router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) =>
 
 // POST '/auth/login'
 router.post('/login', isNotLoggedIn, validationLogin, async (req, res, next) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const user = await User.findOne({ username }) ;
+    const user = await User.findOne({ email }) ;
     if (!user) {
       next(createError(404));
     } 

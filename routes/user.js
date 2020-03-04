@@ -3,6 +3,23 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const User = require("../models/user-model");
 
+// GET ALL USERS //
+router.get('/', (req, res, next) => {
+    User
+        .find()
+        //.populate('user')
+        .then(allUsers => {
+            res
+              .status(200)
+              .json(allUsers);
+        })
+        .catch(err => {
+            res
+            .status(400)
+            .json(err); 
+        });
+});
+
 // UPDATE A USER //
 router.put('/:id', (req, res, next) => {
     const {id} = req.params;
@@ -29,7 +46,7 @@ router.delete('/:id', (req, res, next) => {
         .then(() => {
             res
               .status(202)
-              .json({message: `User ${id} removed successfully`});
+              .json({message: `User IDed ${id} was removed successfully`});
         })
         .catch(err => {
             res

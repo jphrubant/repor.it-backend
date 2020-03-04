@@ -7,7 +7,7 @@ const Report = require("../models/report-model");
 router.get('/', (req, res, next) => {
     Report
         .find()
-        .populate('user')
+        //.populate('user')
         .then(allReports => {
             res
               .status(200)
@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
     const {motivation, type, space, description, time, date, location, user} = req.body;
     Report
         .create({motivation, type, space, description, time, date, location, user})
-        .populate('user')
+        //.populate('user')
         .then(newReport => {
             res
               .status(201)
@@ -43,7 +43,7 @@ router.put('/:id', (req, res, next) => {
     const {id} = req.params;
     const {motivation, type, space, description, time, date, location, user} = req.body;
     Report
-        .findByIdAndUpdate(id, {motivation, type, space, description, time, date, location, user})
+        .findByIdAndModify(id, {motivation, type, space, description, time, date, location, user})
         .then(() => {
             res
               .status(200)

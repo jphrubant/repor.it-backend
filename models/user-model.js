@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
-  dateOfBirth: {type: Date},
-  sex: {type: String, enum: ['male', 'female', 'trans', 'intersex', 'other']},
-  sexualOrientation: {type: String, enum: ['Heterosexual', 'homosexual', 'bisexual', 'asexual', 'other']},
+  dateOfBirth: {type: String},
+  sex: {type: String, enum: ['Male', 'Female', 'Trans', 'Intersex', 'Other']},
+  sexualOrientation: {type: String, enum: ['Heterosexual', 'Homosexual', 'Bisexual', 'Asexual', 'Other']},
   ethnicity: {type: String, enum: ['White', 'Black', 'Asian', 'Hispanic', 'Latinx', 'Middle Easter', 'Mixed', 'Other']},
   nationality: {type: String},
-  reports: [{type: Schema.Types.ObjectId, red:'Report'}]
+  reports: [{type: Schema.Types.ObjectId, ref:'Report'}]
 }, {
   timestamps: {
     createdAt: 'created_at',
