@@ -15,8 +15,6 @@ const {
 // POST '/auth/signup'
 router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) => {
   const { email, password, dateOfBirth, sex, sexualOrientation, ethnicity, nationality, reports} = req.body;
-  console.log('req.body',req.body);
-  
   try {																									 // projection
     const emailExists = await User.findOne({ email }, 'email');
     
@@ -24,13 +22,14 @@ router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) =>
     else {
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashPass = bcrypt.hashSync(password, salt);
+    
       const newUser = await User.create({ email, password: hashPass, dateOfBirth, sex, sexualOrientation, ethnicity, nationality, reports}); 
-      
-      newUser.password = "*";
+      newUser.password = "";
       req.session.currentUser = newUser;
       res
-        .status(201)  //  Created
+        .status(201)  
         .json(newUser);
+        console.log(newUser);
     }
   } 
   catch (error) {
@@ -42,19 +41,19 @@ router.post('/signup', isNotLoggedIn, validationLogin, async (req, res, next) =>
 // POST '/auth/login'
 router.post('/login', isNotLoggedIn, validationLogin, async (req, res, next) => {
   const { email, password } = req.body;
+  
   try {
     const user = await User.findOne({ email }) ;
+    console.log('(password, user.password)', password, user);
     if (!user) {
       next(createError(404));
     } 
     else if (bcrypt.compareSync(password, user.password)) {
-      
-      user.password = '*';
+      user.password = "";
       req.session.currentUser = user;
       res
         .status(200)
         .json(user);
-    //return;	 			TODO - remove from the notes
     } 
     else {
       next(createError(401));	// Unauthorized
@@ -76,10 +75,13 @@ router.post('/logout', isLoggedIn, (req, res, next) => {
 
 // GET '/auth/me'
 router.get('/me', isLoggedIn, (req, res, next) => {
-  const currentUserSessionData = req.session.currentUser;
-  currentUserSessionData.password = '*';
-  
-  res.status(200).json(currentUserSessionData);
+  User.findById(req.session.currentUser._id)
+  .then((currentUser)=>{
+    currentUser.password = "";
+    res
+      .status(200)
+      .json(currentUser);
+  })
 });
 
 module.exports = router;
