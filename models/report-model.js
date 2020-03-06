@@ -12,11 +12,11 @@ const reportSchema = new Schema({
     type: {
       type: String, 
       enum: ['Point'], // 'location.type' must be 'Point'
-      // required: true <-- uncomment later
+      required: true 
     },
     coordinates: {
       type: [Number],
-      // required: true <-- uncomment later
+      required: true
     }
   },
   user: {type: Schema.Types.ObjectId,ref:'User'}

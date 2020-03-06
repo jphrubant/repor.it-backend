@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const Report = require("../models/report-model");
+const User = require("../models/user-model");
 
 // GET ALL REPORTS //
 router.get('/', (req, res, next) => {
@@ -40,9 +41,6 @@ router.get('/:id', (req, res, next) => {
 // CREATE A REPORT//
 router.post('/', (req, res, next) => {
     const {motivation, type, space, description, time, date, location, user} = req.body;
-    console.log('req.bodyyyyy', req.body)
-    console.log('USER', user)
-    console.log('LOCATION', location)
 
     Report
         .create({motivation, type, space, description, time, date, location, user})
@@ -50,6 +48,18 @@ router.post('/', (req, res, next) => {
             res
               .status(201)
               .json(newReport); 
+
+              User.findByIdAndUpdate(
+                user,
+                { $push: { reports: newReport} },
+                { new : true }
+                )
+              .then( response => {
+                console.log("response");
+              } )
+              .catch( err => {
+                console.log("error time", err);
+            })
         })
         .catch(err => {
             res
