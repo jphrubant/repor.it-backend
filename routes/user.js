@@ -25,7 +25,7 @@ router.put('/:id', (req, res, next) => {
     const {id} = req.params;
     const {email, dateOfBirth, sex, sexualOrientation, ethnicity, nationality} = req.body;
     User
-        .findByIdAndUpdate(id, {email, dateOfBirth, sex, sexualOrientation, ethnicity, nationality})
+        .findByIdAndUpdate(id, {email, dateOfBirth, sex, sexualOrientation, ethnicity, nationality}, {new: true})
         .then(() => {
             res
               .status(200)

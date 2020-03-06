@@ -40,9 +40,12 @@ router.get('/:id', (req, res, next) => {
 // CREATE A REPORT//
 router.post('/', (req, res, next) => {
     const {motivation, type, space, description, time, date, location, user} = req.body;
+    console.log('req.bodyyyyy', req.body)
+    console.log('USER', user)
+    console.log('LOCATION', location)
+
     Report
         .create({motivation, type, space, description, time, date, location, user})
-        //.populate('user')
         .then(newReport => {
             res
               .status(201)
