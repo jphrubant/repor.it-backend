@@ -8,17 +8,7 @@ const reportSchema = new Schema({
   description: {type: String},
   time: {type: String, required: true},
   date: {type: String, required: true},
-  location: {
-    type: {
-      type: String, 
-      enum: ['Point'], // 'location.type' must be 'Point'
-      required: true 
-    },
-    coordinates: {
-      type: [Number],
-      required: true
-    }
-  },
+  location: {type: [Number], required: true},
   user: {type: Schema.Types.ObjectId,ref:'User'}
 }, {
   timestamps: {
