@@ -41,21 +41,20 @@ router.get('/:id', (req, res, next) => {
 // CREATE A REPORT//
 router.post('/', (req, res, next) => {
     const {motivation, type, space, description, time, date, location, user} = req.body;
-
+    console.log("req.body", req.body)
     Report
         .create({motivation, type, space, description, time, date, location, user})
         .then(newReport => {
             res
               .status(201)
               .json(newReport); 
-
               User.findByIdAndUpdate(
                 user,
-                { $push: { reports: newReport} },
+                { $push: { reports: newReport._id} },
                 { new : true }
                 )
               .then( response => {
-                console.log("response");
+                console.log("response", response);
               } )
               .catch( err => {
                 console.log("error time", err);

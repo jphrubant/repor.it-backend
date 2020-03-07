@@ -76,6 +76,7 @@ router.post('/logout', isLoggedIn, (req, res, next) => {
 // GET '/auth/me'
 router.get('/me', isLoggedIn, (req, res, next) => {
   User.findById(req.session.currentUser._id)
+  .populate('reports')
   .then((currentUser)=>{
     currentUser.password = "";
     res
