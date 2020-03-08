@@ -8,7 +8,6 @@ const User = require("../models/user-model");
 router.get('/', (req, res, next) => {
     Report
         .find()
-        //.populate('user')
         .then(allReports => {
             res
               .status(200)
@@ -21,29 +20,28 @@ router.get('/', (req, res, next) => {
         });
 });
 
-// GET ALL REPORTS OF ONE USER //
+// GET ONE REPORT BY ID //
 router.get('/:id', (req, res, next) => {
-    Report
-        .find()
-        //.populate('user')
-        .then(allReports => {
-            res
-              .status(200)
-              .json(allReports);
-        })
-        .catch(err => {
-            res
-            .status(400)
-            .json(err); 
-        });
+  const {id} = req.params
+  Report
+    .findById(id)
+    .then(oneReport => {
+      res
+        .status(200)
+        .json(oneReport);
+    })
+    .catch(err => {
+      res
+        .status(400)
+        .json(err); 
+    });
 });
 
 // CREATE A REPORT//
 router.post('/', (req, res, next) => {
-    const {motivation, type, space, description, time, date, location, user} = req.body;
-    console.log("req.body", req.body)
+    const {role, motivation, type, space, description, time, date, location, user} = req.body;
     Report
-        .create({motivation, type, space, description, time, date, location, user})
+        .create({role, motivation, type, space, description, time, date, location, user})
         .then(newReport => {
             res
               .status(201)
@@ -70,9 +68,9 @@ router.post('/', (req, res, next) => {
 // UPDATE A REPORT //
 router.put('/:id', (req, res, next) => {
     const {id} = req.params;
-    const {motivation, type, space, description, time, date, location, user} = req.body;
+    const {role, motivation, type, space, description, time, date, location} = req.body.role;
     Report
-        .findByIdAndModify(id, {motivation, type, space, description, time, date, location, user})
+        .findByIdAndUpdate(id, {role, motivation, type, space, description, time, date, location})
         .then(() => {
             res
               .status(200)

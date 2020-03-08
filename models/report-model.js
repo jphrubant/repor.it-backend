@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reportSchema = new Schema({
+  role: {type: String, required: true, enum: ['Victim', 'Witness']},
   motivation: {type: String, required: true, enum: ['Sexist', 'Racist', 'Homophobic', 'Transphobic', 'Islamophobic', 'Antisemitic', 'Other']},
   type: {type: String, required: true, enum: ['Verbal', 'Physical']},
   space: {type: String, required: true, enum: ['Outside', 'Inside']},
