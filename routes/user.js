@@ -27,9 +27,17 @@ router.delete('/:id', (req, res, next) => {
     User
         .findByIdAndRemove(id)
         .then(() => {
-            res
-              .status(202)
-              .json({message: `User IDed ${id} was removed successfully`});
+            req.session.destroy((err) => {
+                if(err){
+                    res.status(500).send()
+                } 
+                else {
+                    console.log('HELLOOOOOO')
+                    res
+                    .status(202)
+                    .json({message: `User IDed ${id} was removed successfully`});
+                }
+            }) 
         })
         .catch(err => {
             res
