@@ -1,7 +1,7 @@
 #  Report.it
 
 ## Description
-Report.it is a web-application that allows users to anonymously report acts of discrimination and harassment
+is a map based platform for reporting acts of discrimination against women, the LGBTQI+ community as well as ethnic and  religious minorities.
 
 ## User Stories
 - As a user I want to see the map of reports in my area
@@ -17,7 +17,7 @@ Report.it is a web-application that allows users to anonymously report acts of d
 - Colour coded pins for differents types of attacks
 - Personal map with own reports
 - Resource page with links to local associations
-- Map filers with motivation, verbal, time, date
+- Map filers with time an date
 
 # Client/Frontend
 
@@ -35,14 +35,18 @@ Report.it is a web-application that allows users to anonymously report acts of d
 |`/account/edit/:id` | `EditAccount`|user only| navigates to edit perosnal info form, and then back to personal area with saved edits|
 
 ## Components
-- Navbar
-- HomePage
-- Map
-- ReportForm
-- EditAccount
-- SignUp
-- Login
 - Account
+- AnnonRoute
+- CreateReport
+- EditAccount
+- EditReport
+- Home
+- Login
+- Map
+- Navbar
+- OneReportInfo
+- PrivateRoute
+- SignUp
 
 ## Services
 - Auth Service
@@ -50,18 +54,17 @@ Report.it is a web-application that allows users to anonymously report acts of d
     -   auth.signup(user)
     -   auth.logout()
     -   auth.me()
-    -   auth.getUser() // synchronous
 
 - Report Service
-    -   report.getAll()
-    -   report.getOneByUser(userId)
-    -   report.create()
-    -   report.delete(id)
+    -   report.allReports()
+    -   report.oneReport()
+    -   report.createReport()
+    -   report.updateReport()
+    -   report.deleteReport()
 
 - User Servicer
-    -   user.details(id)
-    -   user.edit(id)
-    -   user.delete(id)
+    -   user.userEdit()
+    -   user.delete()
 
 # Server/Backend
 
@@ -70,28 +73,39 @@ Report.it is a web-application that allows users to anonymously report acts of d
 User model
 ```
 {
-    email: {type: String, required: true, unique: true},
-    password: {type: String, required: true},
-    dateOfBirth: {type: Date},
-    sex: {type: String},
-    sexualOrientation: {type: String},
-    ethnicity: {type: String},
-    nationality: {type: String},
-    reports: [{type: Schema.Types.ObjectId, red:'Report'}]
+  email: {type: String, required: true, unique: true},
+  password: {type: String, required: true},
+  dateOfBirth: {type: String},
+  sex: {type: String, enum: ['', 'Male', 'Female', 'Trans', 'Intersex', 'Other']},
+  sexualOrientation: {type: String, enum: ['', 'Heterosexual', 'Homosexual', 'Bisexual', 'Asexual', 'Other']},
+  ethnicity: {type: String, enum: ['', 'White', 'Black', 'Asian', 'Hispanic', 'Latinx', 'Middle Eastern', 'Mixed', 'Other']},
+  nationality: {type: String},
+  reports: [{type: Schema.Types.ObjectId, ref:'Report'}]
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  },
 }
 ```
 
 Report model
 ```
 {
-    motivation: {type: String, required: true, enum: ['sexist', 'racist', 'homophobic', 'transphobic', 'islamophobic', 'antisemitic', 'other']},
-    type: {type: String, required: true, enum: ['verbal', 'physical']},
-    space: {type: String, required: true, enum: ['public', 'private']},
-    description: {type: String, required: true},
-    time: {type: time, required: true},
-    date: {type: Date, required: true},
-    location: {type: String, coordinates:[], required: true},
-    user: {type: Schema.Types.ObjectId,ref:'User'}
+  role: {type: String, required: true, enum: ['Victim', 'Witness']},
+  motivation: {type: String, required: true, enum: ['Sexist', 'Racist', 'Homophobic', 'Transphobic', 'Islamophobic', 'Antisemitic', 'Other']},
+  type: {type: String, required: true, enum: ['Verbal', 'Physical']},
+  space: {type: String, required: true, enum: ['Outside', 'Inside']},
+  description: {type: String},
+  time: {type: String, required: true},
+  date: {type: String, required: true},
+  location: {type: [Number], required: true},
+  user: {type: Schema.Types.ObjectId,ref:'User'}
+}, {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  },
 }
 ```
 
@@ -105,6 +119,7 @@ Report model
 | `GET`| `/auth/me`     | n/a | 200 | 500 | Returns user data from session storage, for react FE authentication. |
 | `POST`|`/auth/logout`|id| |  |   Logs out the user |
 | `GET`| `/report `| n/a | |  | finds all reports |
+| `GET`| `/report/:id `| n/a | |  | finds one report by ID |
 | `POST`| ` /report`| {report-model}||  |creates a new report|
 | `PUT` | `	/report/:id` | {id, report-model}| | |edits report details|
 | `DELETE` | `/report/:id` |{id} || |deletes report|
@@ -115,5 +130,5 @@ Report model
 ## Links
 - [Trello](https://trello.com/b/AL5zm68u/reportit)
 - [Git](https://github.com/jphrubant?tab=repositories)
-- [Slides]()
+- [Slides](https://docs.google.com/presentation/d/1QpxGmGoAFeYdrxLytdisQrgfHTWk8nlBKkTaoaGOxt4/edit#slide=id.g711faf2059_0_31)
 
