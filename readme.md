@@ -117,14 +117,14 @@ Report model
 | `POST`| `/auth/signup`  | user model| 200| 500 | Checks if fields not empty and user not exists, then create user with encrypted password, and store user in session|
 | `POST`| `/auth/login` | {username, password}| 204 | 500| Checks if fields not empty, if user exists (404), and if password matches, then stores user in session login session.            |
 | `GET`| `/auth/me`     | n/a | 200 | 500 | Returns user data from session storage, for react FE authentication. |
-| `POST`|`/auth/logout`|id| |  |   Logs out the user |
-| `GET`| `/report `| n/a | |  | finds all reports |
-| `GET`| `/report/:id `| n/a | |  | finds one report by ID |
-| `POST`| ` /report`| {report-model}||  |creates a new report|
-| `PUT` | `	/report/:id` | {id, report-model}| | |edits report details|
-| `DELETE` | `/report/:id` |{id} || |deletes report|
-| `PUT` | `	/user/:id` | {id, user-model}| | |edits user information|
-| `DELETE` | `/user/:id` | {id} | | |deletes users|
+| `POST`|`/auth/logout`|id| | 204 |   Logs out the user |
+| `GET`| `/report `| n/a | 200| 400 | finds all reports |
+| `GET`| `/report/:id `| n/a | 200 | 400 | finds one report by ID |
+| `POST`| ` /report`| {report-model}|201| 500|creates a new report|
+| `PUT` | `	/report/:id` | {id, report-model}|200 | 501 |edits report details|
+| `DELETE` | `/report/:id` |{id} |202|500|deletes report|
+| `PUT` | `	/user/:id` | {id, user-model}|200|501|edits user information|
+| `DELETE` | `/user/:id` | {id} |500|202|deletes users|
 
 
 ## Links
